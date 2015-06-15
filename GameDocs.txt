@@ -1,0 +1,18 @@
+List for board setting. 'O', 'X', 'B' elements representing O X and blank respectively. 
+
+First turn can be human or robot:
+
+if robot first:
+	turn and make minmax trees and store to list of lists.
+
+
+else if human first:
+	check humans move and select appropriate tree from list of lists. 
+	then make moves according to that tree only.
+
+Move(1) means 1st row 1st col.
+Move(9) means 3rd row 3rd col.
+
+
+
+

@@ -13,6 +13,7 @@ WHITE = (255,255,255)
 RED = (255,0,0)
 GREEN =(0,255,0) 
 BLUE = (0,0,255)
+"""
 drawCross(self,box_number):
     x1=
     y1=
@@ -21,7 +22,7 @@ drawCross(self,box_number):
 
 
 drawCircle(self,box_number):
-    
+"""    
 
 DISPLAYSURF.fill(BLUE)
 pygame.draw.rect(DISPLAYSURF,WHITE,(10,10,270,270))
