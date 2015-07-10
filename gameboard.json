@@ -1,3 +1,5 @@
+// make tree like structure for json file. For example a--b--c each node has 2 attributes: current state and score +10 for win -10 for lose etc.
+
 {
   "0":{
     "currentState":{
