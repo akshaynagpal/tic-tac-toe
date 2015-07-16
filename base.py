@@ -11,7 +11,7 @@ pygame.display.set_caption('tic tac toe')
 BLACK = (0,0,0)
 WHITE = (255,255,255)
 RED = (255,0,0)
-GREEN =(0,255,0) 
+GREEN =(0,255,0)
 BLUE = (0,0,255)
 """
 drawCross(self,box_number):
@@ -22,7 +22,7 @@ drawCross(self,box_number):
 
 
 drawCircle(self,box_number):
-"""    
+"""
 
 DISPLAYSURF.fill(BLUE)
 pygame.draw.rect(DISPLAYSURF,WHITE,(10,10,270,270))
@@ -31,7 +31,7 @@ pygame.draw.line(DISPLAYSURF,BLACK,(190,10),(190,280),2)
 pygame.draw.line(DISPLAYSURF,BLACK,(10,190),(280,190),2)
 pygame.draw.line(DISPLAYSURF,BLACK,(10,100),(280,100),2)
 
-"""                 
+"""
 90,10-------90,280
 180,10------180,280
 """
@@ -42,4 +42,4 @@ while True:
             pygame.quit()
             sys.exit()
     pygame.display.update()
-    
+

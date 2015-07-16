@@ -8,15 +8,20 @@
 </style>
 </head>
 <body >
-
+<script type="text/javascript">
+ 
+</script>
 
 <canvas id="main-canvas" height="600" width="600" style="border: 1px solid #000000;">
 Your browser does not support canvas.
 </canvas>
 <script>
+      // human is cross (i.e. 1)
+      // comp is zero (i.e. 0)
       // cross is 1
       // O is 0
       // blank is 2
+      var computer_starts = false;
       var mouseX = 0;
       var mouseY = 0;
       var box=0;
@@ -24,6 +29,13 @@ Your browser does not support canvas.
       var disabled = new Array();  // array to add already used boxes
       var c = document.getElementById("main-canvas");
       var ctx = c.getContext("2d");
+      var gameArray = new Array(2,2,2,2,2,2,2,2,2);
+
+
+      if(confirm('Computer Starts the game? \n OK= Computer , Cancel = Human')){
+        computer_starts = true;
+      }
+
       //  drawing grid
       ctx.moveTo(200,0);
       ctx.lineTo(200,600);
@@ -38,6 +50,11 @@ Your browser does not support canvas.
 
       //adding mouse click event listener
       c.addEventListener('mousedown',getBox,false);
+
+      if  
+
+
+
 
       function getBox(event){
         var mouseX = event.x - c.offsetLeft ;
@@ -184,10 +201,9 @@ Your browser does not support canvas.
           ctx.stroke();
         }
         disabled.push(box);
-
-
-
       }
+
+      
 </script>
 </body>
 
