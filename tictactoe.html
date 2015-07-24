@@ -21,7 +21,7 @@ Your browser does not support canvas.
       // comp is O 
       // cross is 'X'
       // O is 0
-      // blank is 2
+      // blank is B
 
       //init
 
@@ -33,7 +33,7 @@ Your browser does not support canvas.
       var disabled = new Array();  // array to add already used boxes
       var c = document.getElementById("main-canvas");
       var ctx = c.getContext("2d");
-      var gameArray = new Array('B','B','B','B','B','B','B','B','B');
+      var gameArray = new Array("B","B","B","B","B","B","B","B","B");
 
       // END init
 
@@ -52,7 +52,49 @@ Your browser does not support canvas.
       //adding mouse click event listener
       c.addEventListener('mousedown',getBox,false);
 
+      // function checkFutureWin(side){
+      //   if(side=="human"){
 
+      //   }
+
+      // }
+      function checkWin(side){
+        //alert("inside checkwin");
+        if(side=="human"){
+
+          if(
+            (gameArray[0]==gameArray[1]&&gameArray[1]==gameArray[2]&&gameArray[2]=="X")||
+            (gameArray[3]==gameArray[4]&&gameArray[4]==gameArray[5]&&gameArray[5]=="X")||
+            (gameArray[6]==gameArray[7]&&gameArray[7]==gameArray[8]&&gameArray[8]=="X")||
+            (gameArray[0]==gameArray[3]&&gameArray[3]==gameArray[6]&&gameArray[6]=="X")||
+            (gameArray[1]==gameArray[4]&&gameArray[4]==gameArray[7]&&gameArray[7]=="X")||
+            (gameArray[2]==gameArray[5]&&gameArray[5]==gameArray[8]&&gameArray[8]=="X")||
+            (gameArray[0]==gameArray[4]&&gameArray[4]==gameArray[8]&&gameArray[8]=="X")||
+            (gameArray[2]==gameArray[4]&&gameArray[4]==gameArray[6]&&gameArray[6]=="X"))
+          {
+            //alert("You Win!");
+            window.location.replace("win.html");
+          }
+        }  
+        else{
+
+          if(
+            (gameArray[0]==gameArray[1]&&gameArray[1]==gameArray[2]&&gameArray[2]=="O")||
+            (gameArray[3]==gameArray[4]&&gameArray[4]==gameArray[5]&&gameArray[5]=="O")||
+            (gameArray[6]==gameArray[7]&&gameArray[7]==gameArray[8]&&gameArray[8]=="O")||
+            (gameArray[0]==gameArray[3]&&gameArray[3]==gameArray[6]&&gameArray[6]=="O")||
+            (gameArray[1]==gameArray[4]&&gameArray[4]==gameArray[7]&&gameArray[7]=="O")||
+            (gameArray[2]==gameArray[5]&&gameArray[5]==gameArray[8]&&gameArray[8]=="O")||
+            (gameArray[0]==gameArray[4]&&gameArray[4]==gameArray[8]&&gameArray[8]=="O")||
+            (gameArray[2]==gameArray[4]&&gameArray[4]==gameArray[6]&&gameArray[6]=="O"))
+          {
+            //alert("You lose! Hahahaha!! B-)");
+            window.location.replace("lose.html");
+
+          }
+
+        }
+      }
 
       function drawCross(box){
 
@@ -119,8 +161,9 @@ Your browser does not support canvas.
           ctx.lineTo(400,600);
           ctx.stroke();
         }
-        gameArray[box] = 'X';
+        gameArray[box] = "X";
         console.log(gameArray);
+        //checkWin("human");
       }
 
 
@@ -171,8 +214,9 @@ Your browser does not support canvas.
           ctx.arc(500,500,80,0,2*Math.PI);
           ctx.stroke();
         }
-        gameArray[box] = 'O';
+        gameArray[box] = "O";
         console.log(gameArray);
+        checkWin("machine");
       }
 
       function getBox(event){
@@ -197,13 +241,19 @@ Your browser does not support canvas.
           else{box = 8;}
         }
         //prevent redrawing
-        if(gameArray[box]=='B'){
+        if(gameArray[box]=="B"){
           drawCross(box);
-          if(gameArray[box+1]=='B'){
+          checkWin("human");
+          if(gameArray[box+1]=="B"){
             drawCircle(box+1);  
           } 
         }
       }
+
+
+
+
+      
 
       if(confirm("Computer starts the game? \n OK = Yes, Computer \n Cancel = No, Human")){
         drawCircle(4);
