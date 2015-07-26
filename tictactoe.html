@@ -24,7 +24,7 @@ Your browser does not support canvas.
       // blank is B
 
       //init
-
+      var human_wins = false;
       var computer_starts = false;
       var mouseX = 0;
       var mouseY = 0;
@@ -52,12 +52,12 @@ Your browser does not support canvas.
       //adding mouse click event listener
       c.addEventListener('mousedown',getBox,false);
 
-      // function checkFutureWin(side){
-      //   if(side=="human"){
+      function checkFutureWin(side){
+        if(side=="human"){
+          
+        }
 
-      //   }
-
-      // }
+      }
       function checkWin(side){
         //alert("inside checkwin");
         if(side=="human"){
@@ -72,7 +72,7 @@ Your browser does not support canvas.
             (gameArray[0]==gameArray[4]&&gameArray[4]==gameArray[8]&&gameArray[8]=="X")||
             (gameArray[2]==gameArray[4]&&gameArray[4]==gameArray[6]&&gameArray[6]=="X"))
           {
-            //alert("You Win!");
+            human_wins = true;
             window.location.replace("win.html");
           }
         }  
@@ -163,7 +163,7 @@ Your browser does not support canvas.
         }
         gameArray[box] = "X";
         console.log(gameArray);
-        //checkWin("human");
+        checkWin("human");
       }
 
 
@@ -243,9 +243,8 @@ Your browser does not support canvas.
         //prevent redrawing
         if(gameArray[box]=="B"){
           drawCross(box);
-          checkWin("human");
-          if(gameArray[box+1]=="B"){
-            drawCircle(box+1);  
+          if(gameArray[box+1]=="B" && !human_wins){
+            drawCircle(box+1);
           } 
         }
       }
