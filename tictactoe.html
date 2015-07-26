@@ -52,12 +52,36 @@ Your browser does not support canvas.
       //adding mouse click event listener
       c.addEventListener('mousedown',getBox,false);
 
+      function getAllMoves(){
+
+        blankIndexes = new Array();
+
+          for(i=0;i<9;i++){
+            if(gameArray[i]=="B"){
+              blankIndexes.push(i);              
+            }
+          }
+          return blankIndexes;
+      }
+
+
       function checkFutureWin(side){
+        humanIndexes = new Array();
         if(side=="human"){
-          
+
+          for(i=0;i<9;i++){
+            if(gameArray[i]=="X"){
+              humanIndexes.push(i);
+            }
+          }
+          console.log(humanIndexes);
         }
 
+
       }
+
+
+
       function checkWin(side){
         //alert("inside checkwin");
         if(side=="human"){
@@ -164,6 +188,7 @@ Your browser does not support canvas.
         gameArray[box] = "X";
         console.log(gameArray);
         checkWin("human");
+        console.log(getAllMoves());
       }
 
 
@@ -248,11 +273,6 @@ Your browser does not support canvas.
           } 
         }
       }
-
-
-
-
-      
 
       if(confirm("Computer starts the game? \n OK = Yes, Computer \n Cancel = No, Human")){
         drawCircle(4);
