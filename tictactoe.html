@@ -17,11 +17,9 @@ Your browser does not support canvas.
 </canvas>
 <script>
       // RULES
-      // human is X
-      // comp is O 
-      // cross is 'X'
-      // O is 0
-      // blank is B
+      // human is "X"
+      // comp is "O" 
+      // blank is "B"
 
       //init
       var human_wins = false;
@@ -47,78 +45,113 @@ Your browser does not support canvas.
       ctx.moveTo(0,400);
       ctx.lineTo(600,400);
       ctx.stroke();
+
       // end drawing grid
 
       //adding mouse click event listener
       c.addEventListener('mousedown',getBox,false);
 
-      function getAllMoves(){
+      function getBlankIndexes(gArray){
 
-        blankIndexes = new Array();
+        var bIndexes = new Array();
 
           for(i=0;i<9;i++){
-            if(gameArray[i]=="B"){
-              blankIndexes.push(i);              
+            if(gArray[i]=="B"){
+              bIndexes.push(i);              
             }
           }
-          return blankIndexes;
+          return bIndexes;
       }
 
 
-      function checkFutureWin(side){
-        humanIndexes = new Array();
-        if(side=="human"){
+      // function checkFutureWin(side,boxNumber){
+      //   humanIndexes = new Array();
+      //   if(side=="human"){
 
-          for(i=0;i<9;i++){
-            if(gameArray[i]=="X"){
-              humanIndexes.push(i);
-            }
+      //     for(i=0;i<9;i++){
+      //       if(gameArray[i]=="X"){
+      //         humanIndexes.push(i);
+      //       }
+      //     }
+      //     console.log(humanIndexes);
+      //   }
+
+      // }
+
+
+
+
+      function getMachineMove(){
+
+        console.log("inside getMachineMove");
+        blankIndexes = getBlankIndexes(gameArray);
+        console.log("blank spaces are : " + blankIndexes);
+
+        for (bIndex in blankIndexes){
+          tempGameArray = gameArray;
+          tempGameArray[bIndex]="X";
+          if(checkWin("human",tempGameArray)){
+            return bIndex;
           }
-          console.log(humanIndexes);
         }
 
+        for (bIndex in blankIndexes){
+          tempGameArray = gameArray;
+          tempGameArray[bIndex]="O";
+          if(checkWin("machine",tempGameArray)){
+            return bIndex;
+          }
+        }  
+
+        return blankIndexes[Math.floor(Math.random() * blankIndexes.length)];      
 
       }
 
 
 
-      function checkWin(side){
+
+      function checkWin(side,gArray){
         //alert("inside checkwin");
         if(side=="human"){
 
           if(
-            (gameArray[0]==gameArray[1]&&gameArray[1]==gameArray[2]&&gameArray[2]=="X")||
-            (gameArray[3]==gameArray[4]&&gameArray[4]==gameArray[5]&&gameArray[5]=="X")||
-            (gameArray[6]==gameArray[7]&&gameArray[7]==gameArray[8]&&gameArray[8]=="X")||
-            (gameArray[0]==gameArray[3]&&gameArray[3]==gameArray[6]&&gameArray[6]=="X")||
-            (gameArray[1]==gameArray[4]&&gameArray[4]==gameArray[7]&&gameArray[7]=="X")||
-            (gameArray[2]==gameArray[5]&&gameArray[5]==gameArray[8]&&gameArray[8]=="X")||
-            (gameArray[0]==gameArray[4]&&gameArray[4]==gameArray[8]&&gameArray[8]=="X")||
-            (gameArray[2]==gameArray[4]&&gameArray[4]==gameArray[6]&&gameArray[6]=="X"))
+            (gArray[0]==gArray[1]&&gArray[1]==gArray[2]&&gArray[2]=="X")||
+            (gArray[3]==gArray[4]&&gArray[4]==gArray[5]&&gArray[5]=="X")||
+            (gArray[6]==gArray[7]&&gArray[7]==gArray[8]&&gArray[8]=="X")||
+            (gArray[0]==gArray[3]&&gArray[3]==gArray[6]&&gArray[6]=="X")||
+            (gArray[1]==gArray[4]&&gArray[4]==gArray[7]&&gArray[7]=="X")||
+            (gArray[2]==gArray[5]&&gArray[5]==gArray[8]&&gArray[8]=="X")||
+            (gArray[0]==gArray[4]&&gArray[4]==gArray[8]&&gArray[8]=="X")||
+            (gArray[2]==gArray[4]&&gArray[4]==gArray[6]&&gArray[6]=="X"))
           {
             human_wins = true;
-            window.location.replace("win.html");
+            return true;
           }
         }  
-        else{
+        else if(side=="machine") {
 
           if(
-            (gameArray[0]==gameArray[1]&&gameArray[1]==gameArray[2]&&gameArray[2]=="O")||
-            (gameArray[3]==gameArray[4]&&gameArray[4]==gameArray[5]&&gameArray[5]=="O")||
-            (gameArray[6]==gameArray[7]&&gameArray[7]==gameArray[8]&&gameArray[8]=="O")||
-            (gameArray[0]==gameArray[3]&&gameArray[3]==gameArray[6]&&gameArray[6]=="O")||
-            (gameArray[1]==gameArray[4]&&gameArray[4]==gameArray[7]&&gameArray[7]=="O")||
-            (gameArray[2]==gameArray[5]&&gameArray[5]==gameArray[8]&&gameArray[8]=="O")||
-            (gameArray[0]==gameArray[4]&&gameArray[4]==gameArray[8]&&gameArray[8]=="O")||
-            (gameArray[2]==gameArray[4]&&gameArray[4]==gameArray[6]&&gameArray[6]=="O"))
+            (gArray[0]==gArray[1]&&gArray[1]==gArray[2]&&gArray[2]=="O")||
+            (gArray[3]==gArray[4]&&gArray[4]==gArray[5]&&gArray[5]=="O")||
+            (gArray[6]==gArray[7]&&gArray[7]==gArray[8]&&gArray[8]=="O")||
+            (gArray[0]==gArray[3]&&gArray[3]==gArray[6]&&gArray[6]=="O")||
+            (gArray[1]==gArray[4]&&gArray[4]==gArray[7]&&gArray[7]=="O")||
+            (gArray[2]==gArray[5]&&gArray[5]==gArray[8]&&gArray[8]=="O")||
+            (gArray[0]==gArray[4]&&gArray[4]==gArray[8]&&gArray[8]=="O")||
+            (gArray[2]==gArray[4]&&gArray[4]==gArray[6]&&gArray[6]=="O"))
           {
-            //alert("You lose! Hahahaha!! B-)");
-            window.location.replace("lose.html");
-
+            return true;
           }
 
         }
+
+        else{
+          return false;
+        }
       }
+
+
+
 
       function drawCross(box){
 
@@ -187,9 +220,14 @@ Your browser does not support canvas.
         }
         gameArray[box] = "X";
         console.log(gameArray);
-        checkWin("human");
-        console.log(getAllMoves());
+        if(checkWin("human",gameArray)){
+          window.location.replace("win.html");
+        }
+
       }
+
+
+
 
 
 
@@ -241,8 +279,13 @@ Your browser does not support canvas.
         }
         gameArray[box] = "O";
         console.log(gameArray);
-        checkWin("machine");
+        if(checkWin("machine",gameArray)){
+          window.location.replace("lose.html");
+        }
       }
+
+
+
 
       function getBox(event){
         var mouseX = event.x - c.offsetLeft ;
@@ -268,8 +311,9 @@ Your browser does not support canvas.
         //prevent redrawing
         if(gameArray[box]=="B"){
           drawCross(box);
-          if(gameArray[box+1]=="B" && !human_wins){
-            drawCircle(box+1);
+          if(!human_wins){
+            var machineMove = getMachineMove(); 
+            drawCircle(machineMove);
           } 
         }
       }
