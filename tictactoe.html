@@ -84,22 +84,30 @@ Your browser does not support canvas.
       function getMachineMove(){
 
         console.log("inside getMachineMove");
+
         blankIndexes = getBlankIndexes(gameArray);
+        lengthOfBlankIndexes = blankIndexes.length;
         console.log("blank spaces are : " + blankIndexes);
 
-        for (bIndex in blankIndexes){
+        console.log("checking human win possibility..");
+
+        for (var b = 0 ;b<lengthOfBlankIndexes ; b++){
           tempGameArray = gameArray;
-          tempGameArray[bIndex]="X";
+          console.log("tempGameArray: "+tempGameArray)
+          tempGameArray[blankIndexes[b]]="X";
           if(checkWin("human",tempGameArray)){
-            return bIndex;
+            console.log("human can win at: "+blankIndexes[b]);
+            return blankIndexes[b];
           }
         }
 
-        for (bIndex in blankIndexes){
+        console.log("checking machine win possibility..")
+
+        for (var b = 0 ;b<lengthOfBlankIndexes ; b++){
           tempGameArray = gameArray;
-          tempGameArray[bIndex]="O";
+          tempGameArray[blankIndexes[b]]="O";
           if(checkWin("machine",tempGameArray)){
-            return bIndex;
+            return blankIndexes[b];
           }
         }  
 
@@ -219,7 +227,7 @@ Your browser does not support canvas.
           ctx.stroke();
         }
         gameArray[box] = "X";
-        console.log(gameArray);
+        console.log("Gamearray: "+gameArray);
         if(checkWin("human",gameArray)){
           window.location.replace("win.html");
         }
@@ -278,7 +286,7 @@ Your browser does not support canvas.
           ctx.stroke();
         }
         gameArray[box] = "O";
-        console.log(gameArray);
+        console.log("Gamearray: "+gameArray);
         if(checkWin("machine",gameArray)){
           window.location.replace("lose.html");
         }
