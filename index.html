@@ -2,17 +2,19 @@
 <html>
 <head>
 <style>
-.body{
-  margin: 0 auto;
+body {
+  text-align: center;
+ }
+#main-canvas{
+  border: 1px solid #000000;
+  margin:0 auto;
 }
 </style>
 </head>
 <body >
-<script type="text/javascript">
- 
-</script>
 
-<canvas id="main-canvas" height="600" width="600" style="border: 1px solid #000000;">
+
+<canvas id="main-canvas" height="600" width="600">
 Your browser does not support canvas.
 </canvas>
 <script>
@@ -52,6 +54,7 @@ Your browser does not support canvas.
       c.addEventListener('mousedown',getBox,false);
 
 
+
       function getBlankIndexes(gArray){
 
         var bIndexes = new Array();
@@ -63,6 +66,7 @@ Your browser does not support canvas.
           }
           return bIndexes;
       }
+
 
 
       function getMachineMove(){
@@ -108,7 +112,6 @@ Your browser does not support canvas.
 
 
       function checkWin(side,gArray){
-        //alert("inside checkwin");
         if(side=="human"){
 
           if(
@@ -147,7 +150,6 @@ Your browser does not support canvas.
         }
       }
 
-// 0 = "X" 4 = "O"  5 = "O"
 
 
       function drawCross(box){
@@ -217,13 +219,20 @@ Your browser does not support canvas.
         }
         gameArray[box] = "X";
         console.log("Gamearray: "+gameArray);
+        
         if(getBlankIndexes(gameArray).length==0){
-          window.location.replace("draw.html");
-          console.log("GAME OVER!");
+          if(confirm("DRAW! Restart?")){
+            location.reload()
+          }
+
+          //window.location.replace("draw.html");
         }
         
         if(checkWin("human",gameArray)){
-          window.location.replace("win.html");
+          if(confirm("You Win! Restart?")){
+            location.reload()
+          }
+          //window.location.replace("win.html");
         }
 
       }
@@ -283,13 +292,20 @@ Your browser does not support canvas.
         console.log("Gamearray: "+gameArray);
 
         if(getBlankIndexes(gameArray).length==0){
+          if(confirm("DRAW! Restart?")){
+            location.reload()
+          }          
+
           //window.location.replace("draw.html");
-          console.log("GAME OVER!");
+          
         }
 
         if(checkWin("machine",gameArray)){
           console.log("You lose");
-          window.location.replace("lose.html");
+          if(confirm("You Lose! Restart?")){
+            location.reload()
+          }          
+          //window.location.replace("lose.html");
         }
       }
 
@@ -320,11 +336,10 @@ Your browser does not support canvas.
         //prevent redrawing
         if(gameArray[box]=="B"){
           drawCross(box);
-          //if(!human_wins){
-            var machineMove = getMachineMove(); 
-            console.log("machineMove is: "+machineMove);
-            drawCircle(machineMove);
-          //} 
+          var machineMove = getMachineMove(); 
+          console.log("machineMove is: "+machineMove);
+          drawCircle(machineMove);
+
         }
       }
 
