@@ -20,9 +20,10 @@ body {
 Your browser does not support canvas.
 </canvas>
 
+<p>This game is currently under development and works best in <strong>Chrome browser.</strong> Please report any bugs to <i>akshay2626 at gmail.com .</i></p>
 <p>Tic Tac Toe by <a href="http://akshaynagpal.me">Akshay Nagpal</a></p>
 
-<p>Currently under development. Please report any bugs to akshay2626 at gmail.com .</a></p>
+
 
 <script>
       // RULES
@@ -31,7 +32,7 @@ Your browser does not support canvas.
       // blank is "B"
 
       //init
-      var human_wins = false;
+      var game_over = false;
       var computer_starts = false;
       var mouseX = 0;
       var mouseY = 0;
@@ -112,7 +113,6 @@ Your browser does not support canvas.
  
         console.log("no possibility found! making a random move!");
         return blankIndexes[Math.floor(Math.random() * lengthOfBlankIndexes)];      
-
       }
 
 
@@ -227,25 +227,22 @@ Your browser does not support canvas.
         gameArray[box] = "X";
         console.log("Gamearray: "+gameArray);
         
-        if(getBlankIndexes(gameArray).length==0){
-          if(confirm("DRAW! Restart?")){
-            location.reload()
-          }
-
-          //window.location.replace("draw.html");
-        }
-        
         if(checkWin("human",gameArray)){
+          game_over = true;
+          console.log("You Win!");
           if(confirm("You Win! Restart?")){
             location.reload()
+          }          
+        } 
+
+        else if(getBlankIndexes(gameArray).length==0){
+            game_over = true;
+            if(confirm("DRAW! Restart?")){
+              location.reload()
+            }             
           }
-          //window.location.replace("win.html");
-        }
 
       }
-
-
-
 
 
 
@@ -298,22 +295,25 @@ Your browser does not support canvas.
         gameArray[box] = "O";
         console.log("Gamearray: "+gameArray);
 
-        if(getBlankIndexes(gameArray).length==0){
-          if(confirm("DRAW! Restart?")){
-            location.reload()
-          }          
-
-          //window.location.replace("draw.html");
-          
-        }
-
         if(checkWin("machine",gameArray)){
+          game_over = true;
           console.log("You lose");
           if(confirm("You Lose! Restart?")){
             location.reload()
           }          
-          //window.location.replace("lose.html");
-        }
+        } 
+
+        else if(getBlankIndexes(gameArray).length==0){
+            game_over = true;
+            if(confirm("DRAW! Restart?")){
+              location.reload()
+            }             
+          }        
+               
+
+
+
+
       }
 
 
@@ -343,10 +343,11 @@ Your browser does not support canvas.
         //prevent redrawing
         if(gameArray[box]=="B"){
           drawCross(box);
-          var machineMove = getMachineMove(); 
-          console.log("machineMove is: "+machineMove);
-          drawCircle(machineMove);
-
+          if(!game_over){
+            var machineMove = getMachineMove(); 
+            console.log("machineMove is: "+machineMove);
+            drawCircle(machineMove);
+          }
         }
       }
 
