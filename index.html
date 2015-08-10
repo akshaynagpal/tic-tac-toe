@@ -109,9 +109,15 @@ Your browser does not support canvas.
           }
         }
 
- 
-        console.log("no possibility found! making a random move!");
-        return blankIndexes[Math.floor(Math.random() * lengthOfBlankIndexes)];      
+        if(gameArray[4]=="B"){
+          return 4;
+        }
+        else{
+          console.log("no possibility found! making a random move!");
+          return blankIndexes[Math.floor(Math.random() * lengthOfBlankIndexes)];
+        }
+
+              
       }
 
 
