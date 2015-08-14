@@ -1,20 +1,30 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Tic Tac Toe by Akshay Nagpal</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Tic tac toe human vs computer game">
-  <meta name="author" content="Akshay Nagpal | akshaynagpal.me">
-<style>
-body {
-  text-align: center;
- }
-#main-canvas{
-  border: 1px solid #000000;
-  margin:0 auto;
-}
-</style>
-</head>
+  <head>
+
+    <title>Tic Tac Toe by Akshay Nagpal</title>
+
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Tic tac toe human vs computer game">
+    <meta name="author" content="Akshay Nagpal | akshaynagpal.me">
+
+    <style>
+
+      body{
+
+        text-align: center;
+      
+      }
+
+      #main-canvas{
+
+        border: 1px solid #000000;
+        margin:0 auto;
+      
+      }
+      
+    </style>
+  </head>
 <body >
 
 
@@ -86,6 +96,8 @@ Your browser does not support canvas.
         lengthOfBlankIndexes = blankIndexes.length;
         console.log("blank spaces are : " + blankIndexes);
 
+
+
         //console.log("checking machine win possibility..")
 
         for (var b = 0 ;b<lengthOfBlankIndexes ; b++){
@@ -104,22 +116,42 @@ Your browser does not support canvas.
           var tempGameArray = gameArray.slice();
           
           tempGameArray[blankIndexes[b]]="X";
-          //console.log("tempGameArray: "+tempGameArray)
+    
           if(checkWin("human",tempGameArray)){
             console.log("human can win at: "+blankIndexes[b]);
             return blankIndexes[b];
           }
         }
 
+        //checking if middle box empty
         if(gameArray[4]=="B"){
           return 4;
         }
-        else{
-          console.log("no possibility found! making a random move!");
-          return blankIndexes[Math.floor(Math.random() * lengthOfBlankIndexes)];
-        }
 
-              
+
+        else{
+
+            console.log("checking blank corners...");
+            var corners = new Array(0,2,6,8);
+            var blankCorners = new Array();
+            for(var c=0;c<lengthOfBlankIndexes;c++){
+              if(corners.indexOf(blankIndexes[c])>-1){
+                blankCorners.push(blankIndexes[c]);
+              }
+            }
+            if (blankCorners.length>0){
+              randomBlankCorner = blankCorners[Math.floor(Math.random()*blankCorners.length)];
+
+              console.log("BLANK CORNERS ARE:"+blankCorners);
+              console.log("RANDOM BLANK CORNER IS "+randomBlankCorner); 
+              return randomBlankCorner;
+
+            }
+            else{
+              console.log("no preferred possibility found! making a random move!");
+              return blankIndexes[Math.floor(Math.random() * lengthOfBlankIndexes)];
+            }   
+        }    
       }
 
 
