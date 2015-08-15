@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>My First JavaScript</h1>
+
+<script>
+  function countOccurences(arr,x){
+    var l = arr.length;
+    var count = 0;
+    for(i=0;i<l;i++){
+      if(arr[i]==x){
+        count++;
+      }
+    }
+    return count;
+  }
+var a = new Array(1,2,1,3);
+alert(countOccurences(a,4));
+</script>
+
+</body>
+</html> 

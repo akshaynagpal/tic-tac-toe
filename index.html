@@ -32,7 +32,7 @@
 Your browser does not support canvas.
 </canvas>
 
-<p>Tic Tac Toe by <a href="http://akshaynagpal.me">Akshay Nagpal.</a> This game is currently under development and works best in <strong>Chrome and Safari browser.</strong> Please report any bugs to <i>akshay2626 at gmail.com .</i></p>
+<p>Tic Tac Toe by <a href="http://twitter.com/akshay2626">Akshay Nagpal.</a> This game works best in <strong>Desktop browsers.</strong> Please report any bugs to <i>akshay2626 at gmail dot com .</i></p>
 
 
 
@@ -74,6 +74,19 @@ Your browser does not support canvas.
       //adding mouse click event listener
       c.addEventListener('mousedown',getBox,false);
 
+
+      function countOccurences(arr,x){
+        var l = arr.length;
+        var count = 0;
+        for(var i=0;i<l;i++){
+          if(arr[i]==x){
+            count++
+          }
+        }  
+        return count; 
+      }
+
+
       function getBlankIndexes(gArray){
 
         var bIndexes = new Array();
@@ -90,20 +103,15 @@ Your browser does not support canvas.
 
       function getMachineMove(){
 
-        //console.log("inside getMachineMove");
-
         var blankIndexes = getBlankIndexes(gameArray);
         lengthOfBlankIndexes = blankIndexes.length;
         console.log("blank spaces are : " + blankIndexes);
-
-
 
         //console.log("checking machine win possibility..")
 
         for (var b = 0 ;b<lengthOfBlankIndexes ; b++){
           var tempGameArray = gameArray.slice();
           tempGameArray[blankIndexes[b]]="O";
-          //console.log("tempGameArray: "+tempGameArray)
           if(checkWin("machine",tempGameArray)){
             return blankIndexes[b];
           }
@@ -114,9 +122,7 @@ Your browser does not support canvas.
 
         for (var b = 0 ;b<lengthOfBlankIndexes ; b++){
           var tempGameArray = gameArray.slice();
-          
           tempGameArray[blankIndexes[b]]="X";
-    
           if(checkWin("human",tempGameArray)){
             console.log("human can win at: "+blankIndexes[b]);
             return blankIndexes[b];
@@ -128,10 +134,8 @@ Your browser does not support canvas.
           return 4;
         }
 
-
-        else{
-
-            console.log("checking blank corners...");
+        else if(gameArray[4]=="X"){
+            //checking blank corners
             var corners = new Array(0,2,6,8);
             var blankCorners = new Array();
             for(var c=0;c<lengthOfBlankIndexes;c++){
@@ -145,8 +149,129 @@ Your browser does not support canvas.
               console.log("BLANK CORNERS ARE:"+blankCorners);
               console.log("RANDOM BLANK CORNER IS "+randomBlankCorner); 
               return randomBlankCorner;
-
             }
+        }
+ 
+        else{
+
+          //checking good rows
+          for(var i=0;i<7;i=i+3){
+            var goodRow = new Array();
+            goodRow.push(gameArray[i]);
+            goodRow.push(gameArray[i+1]);
+            goodRow.push(gameArray[i+2]);
+            if(countOccurences(goodRow,"O")==1 && countOccurences(goodRow,"B")==2){
+              var goodMove = i + goodRow.indexOf("B")
+              console.log("goodMove: "+goodMove);
+              return goodMove;
+            }
+          }
+
+          //checking good columns
+          for(var i=0;i<3;i++){
+            var goodColumn = new Array();
+            goodColumn.push(gameArray[i]);
+            goodColumn.push(gameArray[i+3]);
+            goodColumn.push(gameArray[i+6]);
+
+            if(countOccurences(goodColumn,"O")==1 && countOccurences(goodColumn,"B")==2){
+              if(goodColumn.indexOf("B")==0){
+                var goodMove2 = i;
+              }
+              else{
+                var goodMove2 = i+3;
+              }
+                console.log("goodMove2: "+goodMove2);
+                return goodMove2;
+              }
+          }          
+
+
+
+          // //checking neutral rows
+          // for(var i=0;i<7;i=i+3){
+          //   var neuRow = new Array();
+          //   neuRow.push(gameArray[i]);
+          //   neuRow.push(gameArray[i+1]);
+          //   neuRow.push(gameArray[i+2]);
+          //   if(countOccurences(neuRow,"B")==3){
+          //     var neuMove = i + neuRow.indexOf("B")
+          //     console.log("neuMove: "+neuMove);
+          //     return neuMove;
+          //   }
+          // }
+
+
+          // //checking neutral columns
+          // for(var i=0;i<3;i++){
+          //   var neuColumn = new Array();
+          //   neuColumn.push(gameArray[i]);
+          //   neuColumn.push(gameArray[i+3]);
+          //   neuColumn.push(gameArray[i+6]);
+
+          //   if(countOccurences(neuColumn,"B")==3){
+          //     if(neuColumn.indexOf("B")==0){
+          //       var neuMove2 = i;
+          //     }
+          //     else{
+          //       var neuMove2 = i+3;
+          //     }
+          //       console.log("neuMove2: "+neuMove2);
+          //       return neuMove2;
+          //     }
+          // }
+
+
+
+          //checking bad rows(opponent's good rows)
+          for(var i=0;i<7;i=i+3){
+            var badRow = new Array();
+            badRow.push(gameArray[i]);
+            badRow.push(gameArray[i+1]);
+            badRow.push(gameArray[i+2]);
+            if(countOccurences(badRow,"X")==1 && countOccurences(badRow,"B")==2){
+              var badMove = i + badRow.indexOf("B")
+              console.log("badMove: "+badMove);
+              return badMove;
+            }
+          }
+
+          //checking bad columns(opponent's good columns)
+          for(var i=0;i<3;i++){
+            var badColumn = new Array();
+            badColumn.push(gameArray[i]);
+            badColumn.push(gameArray[i+3]);
+            badColumn.push(gameArray[i+6]);
+
+            if(countOccurences(badColumn,"X")==1 && countOccurences(badColumn,"B")==2){
+              if(badColumn.indexOf("B")==0){
+                var badMove2 = i;
+              }
+              else{
+                var badMove2 = i+3;
+              }
+                console.log("badMove2: "+badMove2);
+                return badMove2;
+              }
+          }          
+
+
+            //checking blank corners
+            var corners = new Array(0,2,6,8);
+            var blankCorners = new Array();
+            for(var c=0;c<lengthOfBlankIndexes;c++){
+              if(corners.indexOf(blankIndexes[c])>-1){
+                blankCorners.push(blankIndexes[c]);
+              }
+            }
+            if (blankCorners.length>0){
+              randomBlankCorner = blankCorners[Math.floor(Math.random()*blankCorners.length)];
+
+              console.log("BLANK CORNERS ARE:"+blankCorners);
+              console.log("RANDOM BLANK CORNER IS "+randomBlankCorner); 
+              return randomBlankCorner;
+            }
+
             else{
               console.log("no preferred possibility found! making a random move!");
               return blankIndexes[Math.floor(Math.random() * lengthOfBlankIndexes)];
