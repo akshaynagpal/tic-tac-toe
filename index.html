@@ -121,7 +121,6 @@ Copyright 2015 Akshay Nagpal (twitter.com/akshay2626)
 
         var blankIndexes = getBlankIndexes(gameArray);
         lengthOfBlankIndexes = blankIndexes.length;
-        console.log("blank spaces are : " + blankIndexes);
 
         //console.log("checking machine win possibility..")
 
@@ -140,7 +139,6 @@ Copyright 2015 Akshay Nagpal (twitter.com/akshay2626)
           var tempGameArray = gameArray.slice();
           tempGameArray[blankIndexes[b]]="X";
           if(checkWin("human",tempGameArray)){
-            console.log("human can win at: "+blankIndexes[b]);
             return blankIndexes[b];
           }
         }
@@ -161,9 +159,6 @@ Copyright 2015 Akshay Nagpal (twitter.com/akshay2626)
             }
             if (blankCorners.length>0){
               randomBlankCorner = blankCorners[Math.floor(Math.random()*blankCorners.length)];
-
-              console.log("BLANK CORNERS ARE:"+blankCorners);
-              console.log("RANDOM BLANK CORNER IS "+randomBlankCorner); 
               return randomBlankCorner;
             }
         }
@@ -178,7 +173,6 @@ Copyright 2015 Akshay Nagpal (twitter.com/akshay2626)
             goodRow.push(gameArray[i+2]);
             if(countOccurences(goodRow,"O")==1 && countOccurences(goodRow,"B")==2){
               var goodMove = i + goodRow.indexOf("B")
-              console.log("goodMove: "+goodMove);
               return goodMove;
             }
           }
@@ -197,7 +191,6 @@ Copyright 2015 Akshay Nagpal (twitter.com/akshay2626)
               else{
                 var goodMove2 = i+3;
               }
-                console.log("goodMove2: "+goodMove2);
                 return goodMove2;
               }
           }          
@@ -247,7 +240,6 @@ Copyright 2015 Akshay Nagpal (twitter.com/akshay2626)
             badRow.push(gameArray[i+2]);
             if(countOccurences(badRow,"X")==1 && countOccurences(badRow,"B")==2){
               var badMove = i + badRow.indexOf("B")
-              console.log("badMove: "+badMove);
               return badMove;
             }
           }
@@ -266,7 +258,6 @@ Copyright 2015 Akshay Nagpal (twitter.com/akshay2626)
               else{
                 var badMove2 = i+3;
               }
-                console.log("badMove2: "+badMove2);
                 return badMove2;
               }
           }          
@@ -282,14 +273,10 @@ Copyright 2015 Akshay Nagpal (twitter.com/akshay2626)
             }
             if (blankCorners.length>0){
               randomBlankCorner = blankCorners[Math.floor(Math.random()*blankCorners.length)];
-
-              console.log("BLANK CORNERS ARE:"+blankCorners);
-              console.log("RANDOM BLANK CORNER IS "+randomBlankCorner); 
               return randomBlankCorner;
             }
-
             else{
-              console.log("no preferred possibility found! making a random move!");
+              //console.log("no preferred possibility found! making a random move!");
               return blankIndexes[Math.floor(Math.random() * lengthOfBlankIndexes)];
             }   
         }    
@@ -405,11 +392,11 @@ Copyright 2015 Akshay Nagpal (twitter.com/akshay2626)
           ctx.stroke();
         }
         gameArray[box] = "X";
-        console.log("Gamearray: "+gameArray);
+        //console.log("Gamearray: "+gameArray);
         
         if(checkWin("human",gameArray)){
           game_over = true;
-          console.log("You Win!");
+          //console.log("You Win!");
           if(confirm("You Win! Restart?")){
             location.reload()
           }          
@@ -473,11 +460,11 @@ Copyright 2015 Akshay Nagpal (twitter.com/akshay2626)
           ctx.stroke();
         }
         gameArray[box] = "O";
-        console.log("Gamearray: "+gameArray);
+        //console.log("Gamearray: "+gameArray);
 
         if(checkWin("machine",gameArray)){
           game_over = true;
-          console.log("You lose");
+          //console.log("You lose");
           if(confirm("You Lose! Restart?")){
             location.reload()
           }          
@@ -519,7 +506,7 @@ Copyright 2015 Akshay Nagpal (twitter.com/akshay2626)
           drawCross(box);
           if(!game_over){
             var machineMove = getMachineMove(); 
-            console.log("machineMove is: "+machineMove);
+            //console.log("machineMove is: "+machineMove);
             drawCircle(machineMove);
           }
         }
